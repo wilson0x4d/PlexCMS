@@ -1,0 +1,182 @@
+﻿body {
+    border: 0px;
+    margin: 0;
+    overflow: hidden;
+    background-color: ButtonFace;
+    font-family: Tahoma;
+}
+
+nav {
+    z-index: -5;
+    background-color: white;
+    border: 1px inset steelblue;
+    overflow: auto;
+    position: fixed;
+    left: 6px;
+    top: 48px;
+    width: 240px;
+    bottom: 8px;
+    overflow: auto;
+    overflow-x: hidden;
+    padding: 4px;
+}
+
+div.logo {
+    z-index: 5;
+    position: fixed;
+    left: 4px;
+    top: 0px;
+    width: 256px;
+    height: 48px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 24px;
+    padding-top: 8px;
+    background-image: url('/Areas/PlexAdmin/Content/PlexCMS-Logo-1.png');
+    background-repeat: no-repeat;
+}
+
+header {
+    position: fixed;
+    left: 260px;
+    top: 0px;
+    width: 100%;
+    height: 48px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    left: 260px;
+    height: 18px;
+    right: 0px;
+    text-align: left;
+    font-size: 12px;
+    padding: 3px;
+    font-weight: bold;
+}
+
+details {
+    display: block;
+    padding: 6px;
+    font-size: 0.9em;
+}
+
+    details ul {
+        margin: 0;
+        padding-left: 16px;
+    }
+
+    details li {
+        list-style: none;
+        font-size: 0.9em;
+    }
+
+a, a:visited, a:active {
+    color: steelblue;
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+div.workspace {
+    border-top: solid 1px steelblue;
+    border-bottom: solid 1px steelblue;
+    border-left: solid 1px steelblue;
+    position: fixed;
+    top: 48px;
+    bottom: 24px;
+    left: 260px;
+    right: 0px;
+    padding: 8px;
+    overflow: auto;
+    background-color: #ffe;
+}
+
+.initialize-hidden {
+}
+
+div.layout-editor, div.page-editor, div.module-editor, div.media-editor {
+}
+
+div.section {
+    background-color: ButtonFace;
+    margin-left: 16px;
+    margin-top: 1px;
+    margin-bottom: 2px;
+    width: 192px;
+    border: outset 1px WindowFrame;
+    padding: 1px;
+}
+
+    div.section span.identity {
+        font-size: 0.9em;
+        text-transform: uppercase;
+    }
+
+    div.section div.section-caption {
+        background-color: InactiveCaption;
+    }
+
+    div.section div.section-info {
+        padding: 3px;
+    }
+
+span.heading {
+    text-transform: capitalize;
+    font-size: 0.6em;
+    font-weight: bold;
+}
+
+.pad16 {
+    padding-left: 16px;
+}
+
+.pad32 {
+    padding-left: 32px;
+}
+
+textarea {
+    width: 580px;
+    height: 280px;
+}
+
+div.links-are-glyphs div div a {
+    font-size: 16px;
+    font-family: monospace;
+    text-decoration: none;
+}
+
+    div.links-are-glyphs div div a:hover {
+        text-decoration: none;
+        color: red;
+    }
+
+.help-system {
+    width: 500px;
+}
+
+    .help-system li {
+        padding: 4px;
+    }
+
+    .help-system span.tag {
+        font-weight: bold;
+        color: orangered;
+        font-size: 0.5em;
+        vertical-align: top;
+    }
+
+.info-box {
+    padding: 16px;
+    border: solid 1px steelblue;
+    background-color: azure;
+}
+
+div.data-box {
+    padding: 16px;
+    border: solid 1px steelblue;
+    background-color: white;
+}

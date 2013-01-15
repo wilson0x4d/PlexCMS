@@ -1,0 +1,10 @@
+﻿<nav>
+    <ul id="menu">
+        @if (User.Identity.IsAuthenticated && User.IsInRole("plx:admin")) {
+            <li>@Html.ActionLink("Admin", "Index", new { area = "PlexAdmin", controller = "Default" })</li>
+        }
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    </ul>
+</nav>

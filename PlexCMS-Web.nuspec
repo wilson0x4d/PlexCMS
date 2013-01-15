@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>PlexCMS-Web</id>
+    <version>0.1.0.0</version>
+    <title>PlexCMS Web</title>
+    <authors>Shaun Wilson</authors>
+    <owners />
+    <projectUrl>http://plexcms.codeplex.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      This package requires an ASP.NET MVC Application as a base, it adds CMS functionality including an admin portal.
+      
+      It does not change the out-of-box MVC experience, allowing you to easily add CMS functionality to existing ASP.NET MVC Applications!
+    </description>
+    <copyright>Copyright (C) Shaun Wilson</copyright>
+    <tags>plex cms asp.net mvc</tags>
+    <dependencies>
+      <dependency id="PlexCMS-Web-PreInstall" version="0.1.0.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Plex\bin\Debug\Plex.dll" target="tools\Plex.dll" />
+    <file src="PostInstall.ps1" target="tools\Install.ps1" />
+
+    <file src="Plex\bin\Debug\Plex.dll" target="lib\net45\Plex.dll" />
+    <file src="Plex\bin\Debug\Plex.pdb" target="lib\net45\Plex.pdb" />
+    
+    <file src="Plex.WebSite\Areas\**\*.*" target="content\Areas" />
+    <file src="Plex.WebSite\Areas\**\*.*" target="content\Areas" />
+    <file src="Plex.WebSite\Content\Orange.css" target="content\Content\Orange.css" />
+    <file src="Plex.WebSite\Content\Purple.css" target="content\Content\Purple.css" />
+    <file src="Plex.WebSite\Views\Shared\Layouts\*.cshtml" target="content\Views\Shared\Layouts" />
+    <file src="Plex.WebSite\Views\Shared\Modules\*.cshtml" target="content\Views\Shared\Modules" />
+    <file src="Plex.WebSite\Views\_ViewStart.cshtml" target="content\Views\_ViewStart.cshtml" />
+    <file src="Plex.WebSite\Controllers\HomeController.cs" target="content\Controllers\HomeController.cs" />
+    <file src="Plex.WebSite\Views\Home\*.cshtml" target="content\Views\Home" />
+    <file src="Plex.WebSite\App_Start\RouteConfig.cs" target="content\App_Start\RouteConfig.cs" />
+    <file src="Plex.WebSite\App_Start\WebApiConfig.cs" target="content\App_Start\WebApiConfig.cs" />
+  </files>
+</package>

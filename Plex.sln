@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plex", "Plex\Plex.csproj", "{5E00762B-310F-4A29-85B9-CE681D67BB10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plex.WebSite", "Plex.WebSite\Plex.WebSite.csproj", "{2088F22D-E7FD-4210-8454-EC3E9609C091}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FF2C0C4A-B32D-49B1-B82D-3D5099001462}"
+	ProjectSection(SolutionItems) = preProject
+		PlexCMS-CreatePackages.ps1 = PlexCMS-CreatePackages.ps1
+		PlexCMS-Web-PreInstall.nuspec = PlexCMS-Web-PreInstall.nuspec
+		PlexCMS-Web.nuspec = PlexCMS-Web.nuspec
+		PostInstall.ps1 = PostInstall.ps1
+		PreInstall.ps1 = PreInstall.ps1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs03
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Plex\\Plex.csproj
+		SccProjectName1 = Plex
+		SccLocalPath1 = Plex
+		SccProjectUniqueName2 = Plex.WebSite\\Plex.WebSite.csproj
+		SccProjectName2 = Plex.WebSite
+		SccLocalPath2 = Plex.WebSite
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E00762B-310F-4A29-85B9-CE681D67BB10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E00762B-310F-4A29-85B9-CE681D67BB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E00762B-310F-4A29-85B9-CE681D67BB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E00762B-310F-4A29-85B9-CE681D67BB10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2088F22D-E7FD-4210-8454-EC3E9609C091}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2088F22D-E7FD-4210-8454-EC3E9609C091}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2088F22D-E7FD-4210-8454-EC3E9609C091}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2088F22D-E7FD-4210-8454-EC3E9609C091}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
+EndGlobal

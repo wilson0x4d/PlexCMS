@@ -1,0 +1,268 @@
+﻿@{
+}
+@section header {
+    <div class="logo">
+    </div>
+    <br />
+    <em>ASP.NET MVC Content Management System</em>
+}
+@section navigation {
+    <details data-bind="with: layoutEditor">
+        <summary>Layouts</summary>
+        <ul data-bind="foreach: layouts">
+            <li><a href="#" data-bind="text: id, click: $root.layoutEditor.selectLayout"></a></li>
+        </ul>
+    </details>
+    <hr />
+    <details data-bind="with: pageEditor">
+        <summary>Pages</summary>
+        <button data-bind="click: $root.newPageDialog.showDialog">New</button>
+        <div data-bind="foreach: controllers">
+            <details>
+                <summary data-bind="text: id"></summary>
+                <ul data-bind="foreach: pages">
+                    <li><a href="#" data-bind="text: id, click: $root.pageEditor.selectPage"></a></li>
+                </ul>
+            </details>
+        </div>
+    </details>
+    <hr />
+    <details data-bind="with: moduleEditor">
+        <summary>Modules</summary>
+        <button data-bind="click: $root.newModuleDialog.showDialog">New</button>
+        <ul data-bind="foreach: modules">
+            <li><a href="#" data-bind="text: id, click: $root.moduleEditor.selectModule"></a></li>
+        </ul>
+    </details>
+    <hr />
+    <details>
+        <summary>Media</summary>
+        <ul>
+            <li><a href="#" data-bind="click: $root.mediaUploadDialog.showDialog">Uploader</a></li>
+            <li><a href="#" data-bind="click: $root.mediaEditor.showView">Library</a></li>
+        </ul>
+    </details>
+    <hr />
+    <details data-bind="with: helpSystem">
+        <summary>Help</summary>
+        <ul data-bind="foreach: sections">
+            <li><a href="#" data-bind="click: $parent.showSection"><span data-bind="text: title"></span></a></li>
+        </ul>
+    </details>
+}
+@section footer {
+    <a href="http://plexcms.codeplex.com/license" target="_blank">License Agreement</a> | Copyright &copy; @DateTime.Now.Year Shaun Wilson
+}
+<!-- TODO: modularize views into partials for simplicity and/or re-use -->
+<div class="workspace">
+    <div class="help-system">
+        <section title="Welcome!">
+            <h3>Welcome to PlexCMS Admin</h3>
+            <p>Here you can:</p>
+            <ul>
+                <li>View Installed Layouts, and Set a Default Layout</li>
+                <li>Reorder Sections in a Layout</li>
+                <li>Configure Default Modules</li>
+                <li>Create, Edit and Remove Modules</li>
+                <li>Create, Edit and Remove Pages</li>
+                <li>Customize Modules for each Page</li>
+                <li>Create, Edit and Remove Media</li>
+            </ul>
+            <p>
+                To begin, locate and select an option to the left.
+            </p>
+            <div class="info-box">
+                <p>Although available to the public, this project is considered pre-alpha stage. The intent is to gather community feedback.</p>
+                <p>Most of the current code will be redone before a <em>beta</em> release is published. You will find ugly code in the meantime.</p>
+            </div>
+        </section>
+        <section title="For Developers">
+            <h3>For Developers</h3>
+            <ul>
+                <li><span class="tag">[FUTURE]</span> How-To: Localize Content</li>
+                <li><span class="tag">[FUTURE]</span> How-To: Implement Controllers</li>
+                <li><span class="tag">[FUTURE]</span> How-To: Integrate Source Control</li>
+            </ul>
+        </section>
+        <section title="About..">
+            <h3>About PlexCMS</h3>
+            <p>PlexCMS began as a simple Content Management System with the following goals:</p>
+            <ul>
+                <li>
+                    <strong>Embrace and Extend the MVC Framework</strong> - There are no complex APIs to understand nor integrate with to provide your customer with CMS functionality. If you understand the ASP.NET MVC Framework, C# and Razor syntax you will immediately be able to use PlexCMS.
+                </li>
+                <li>
+                    <strong>Prefer Convention over Code</strong> - No need for 'yet another database', no messy configuration files, and no code-writing is required to incorporate PlexCMS into existing MVC Applications.
+                </li>
+                <li>
+                    <strong>Release via NuGet</strong> - PlexCMS is not distributed via WebMatrix, nor Web PI, the primary method of distribution is NuGet. NuGet provides the workflow necessary to deliver PlexCMS for both new and existing MVC applications.
+                </li>
+                <li>
+                    <strong>Provide a Non-Entrenching Solution</strong> - KISS (Keep It Simple Stupid); The motto backing the code. If it's not necessary, it's not going to release. If we do something that would dramatically change the ASP.NET MVC experience, it's not going to release.
+                </li>
+            </ul>
+        </section>
+    </div>
+    <div class="layout-editor initialize-hidden" data-bind="with: layoutEditor.selectedLayout">
+        <h3>"<span data-bind="text: id"></span>" (Layout)</h3>
+
+        <input type="checkbox" name="layoutIsDefault" value="Default" data-bind="checked: ($root.defaultLayout().id() === id()), click: $root.setDefaultLayout" />
+        Use "<span data-bind="text: id"></span>" as the Default Layout.
+
+        <h5>Modify Sections, Default Modules</h5>
+        <div class="links-are-glyphs" data-bind="foreach: sections.sort(function(l,r) { return l.ordinal() < r.ordinal() ? -1 : 1; })">
+            <div class="section">
+                <div class="section-caption">
+                    <a title="remove" href="#" data-bind="click: $root.layoutEditor.sectionRemove">&otimes;</a>&nbsp;<span class="identity" data-bind="text: id"></span>&nbsp;<a title="move up" href="#" data-bind="click: $root.layoutEditor.sectionUp">&uArr;</a>&nbsp;<a title="move down" href="#" data-bind="click: $root.layoutEditor.sectionDown">&dArr;</a>
+                </div>
+                <div class="section-info">
+                    <span class="heading">Modules</span>
+                    <div class="pad16" data-bind="foreach: modules.sort(function(l,r) { return l.ordinal() < r.ordinal() ? -1 : 1; })">
+                        <div><a title="remove" href="#" data-bind="click: $root.layoutEditor.moduleRemove">&otimes;</a>&nbsp;<span class="identity" data-bind="text: id"></span>&nbsp;<a title="move up" href="#" data-bind="click: $root.layoutEditor.moduleUp">&uArr;</a>&nbsp;<a title="move down" href="#" data-bind="click: $root.layoutEditor.moduleDown">&dArr;</a></div>
+                    </div>
+                    <div class="pad32">
+                        <select data-bind="options: $root.moduleEditor.modules, value: $root.layoutEditor.selectedModule, optionsText: 'id'"></select>
+                        <button data-bind="click: $root.layoutEditor.moduleAdd">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h5>Add New Section</h5>
+        <div>
+            <p>
+                You can add a new section, this is only meant to allow Content Authors to add new sections without having to edit files directly. Note, this is NOT the entire Page.
+            </p>
+            <p>
+                Name: <input type="text" data-bind="value: $root.layoutEditor.sectionIdForAdd" />
+                <br />
+                <button data-bind="click: $root.layoutEditor.sectionAdd">Add</button>
+            </p>
+        </div>
+    </div>
+    <div class="module-editor initialize-hidden" data-bind="with: moduleEditor.selectedModule">
+        <h3>"<span data-bind="text: id"></span>" (Module)</h3>
+        <a href="#" title="Give this module a new name.">rename module</a> | <a href="#" title="Permanently delete this module, there is no undelete." data-bind="click: $root.moduleEditor.moduleRemove">delete module</a>
+        <h5>Module Body</h5>
+        <p>
+            You can customize the Module Body here, full C#/Razor syntax is supported as if you were editing a CSHTML file directly.
+        </p>
+        <textarea data-bind="value: text">
+        </textarea>
+        <br />
+        <button data-bind="click: $root.moduleEditor.moduleUpsert">Update</button>
+    </div>
+    <div class="page-editor initialize-hidden" data-bind="with: $root.pageEditor.selectedPage">
+        <h3>"<span data-bind="text: controllerId"></span>/<span data-bind="text: id"></span>" (Page)</h3>
+        <a href="#" title="View this page in a new browser window." data-bind="click: $root.pageEditor.readPage">view page</a> | <a href="#" title="Move page between controllers and/or give it a new name." data-bind="click: $root.notImplemented">move/rename page</a> | <a href="#" title="Permanently delete this page, there is no undelete." data-bind="click: $root.pageEditor.deletePage">delete page</a>
+        <h5>Page Title</h5>
+        Title: <input type="text" data-bind="value: title" />
+        <button data-bind="click: $root.pageEditor.titleSet">Set</button>
+
+        <h5>Page Layout</h5>
+        <p>
+            The <em>Layout</em> determines the availability of <em>Sections</em>, choosing an incorrect Layout may cause <em>Pages</em> to stop rendering.
+            The <strong>Layout Editor</strong> can be used to set a <em>Default Layout</em>.
+        </p>
+        Layout: <select data-bind="options: $root.pageEditor.layouts, optionsText: 'id', optionsValue: 'id', value: layoutId, optionsCaption: 'Use Global Default'"></select>
+        <button data-bind="click: $root.pageEditor.layoutSet">Set</button>
+
+        <h5>Customize Modules</h5>
+        <div class="links-are-glyphs" data-bind="foreach: sections.sort(function(l,r) { return l.ordinal() < r.ordinal() ? -1 : 1; })">
+            <div class="section">
+                <!-- ko if: $data.isPresent -->
+                    <div class="section-caption">
+                        <a title="remove" href="#" data-bind="click: $root.pageEditor.sectionRemove">&otimes;</a>&nbsp;<span class="identity" data-bind="text: id"></span>
+                    </div>
+                    <div class="section-info">
+                        <span class="heading">Modules</span>
+                        <div class="pad16" data-bind="foreach: modules.sort(function(l,r) { return l.ordinal() < r.ordinal() ? -1 : 1; })">
+                            <div><a title="remove" href="#" data-bind="click: $root.pageEditor.moduleRemove">&otimes;</a>&nbsp;<span class="identity" data-bind="text: id"></span>&nbsp;<a title="move up" href="#" data-bind="click: $root.pageEditor.moduleUp">&uArr;</a>&nbsp;<a title="move down" href="#" data-bind="click: $root.pageEditor.moduleDown">&dArr;</a></div>
+                        </div>
+                        <div class="pad32">
+                            <select data-bind="options: $root.moduleEditor.modules, value: $root.pageEditor.selectedModule, optionsText: 'id'"></select>
+                            <button data-bind="click: $root.pageEditor.moduleAdd">Add</button>
+                        </div>
+                    </div>
+                <!-- /ko -->
+                <!-- ko ifnot: $data.isPresent -->
+                    <div class="section-caption">
+                        &nbsp;&nbsp;<span class="identity" data-bind="text: id"></span>
+                    </div>
+                    <div class="section-info">
+                        <button data-bind="click: $root.pageEditor.sectionAdd">Add Missing Section</button>
+                    </div>
+                <!-- /ko -->
+            </div>
+        </div>
+
+        <h5>Customize Body</h5>
+        <p>
+            You can customize the page body here, full C#/Razor syntax is supported as if you were editing a CSHTML file directly.
+        </p>
+        <textarea data-bind="value: body">
+        </textarea>
+        <br />
+        <button data-bind="click: $root.pageEditor.bodySet">Set</button>
+
+    </div>
+    <div class="media-editor initialize-hidden">
+        <h3>Media Library</h3>
+        <div class="data-box" data-bind="foreach: $root.mediaEditor.medias">
+            <!-- TODO: minimalist, would prefer a browser-like approach to nav and interaction -->
+            <div>
+                <span data-bind="text: folderName"></span>/<span data-bind="text: fileName"></span> (<span data-bind="text: length"></span>)
+                <a href="#" data-bind="click: $root.notImplemented">view/download</a> | <a href="#" data-bind="click: $root.notImplemented">rename/move</a> | <a href="#" data-bind="click: $root.mediaEditor.mediaRemove">delete</a>
+            </div>
+        </div>
+    </div>
+    <!-- TODO: the following 3 divs should behave more like dialogs than interstitials, and their functionalities merged with their corresponding editors -->
+    <div class="overlay initialize-hidden" id="media-upload-dialog" data-bind="with: $root.mediaUploadDialog">
+        <h3>Media Uploader</h3>
+        <p>This is a simple media uploader, it allows Content Authors to upload media such as Images, Videos, etc.</p>
+        <h5>Browse for a File</h5>
+        <p>Browse for a File you would like to upload:</p>
+        <div id="media-submit-container"></div>
+        <h5>Pending and Completed Uploads</h5>
+        <div class="data-box" data-bind="foreach: uploads">
+            <!-- TODO: can obviously do better, this is minimalist -->
+            <div style="margin:4px;border:solid 1px #ddd;background-color:#eee;padding:3px">
+                ID: <span data-bind="text: id"></span>
+                <br />
+                FILE: <span data-bind="text: filename"></span>
+                <br />
+                STATE: <span data-bind="text: state"></span>
+                <br />
+                SPEED: <span data-bind="text: speed"></span>
+                <br />
+                PROGRESS: <span data-bind="text: progress"></span>%
+            </div>
+        </div>
+    </div>
+    <div class="overlay initialize-hidden" id="new-page-dialog" data-bind="with: newPageDialog">
+        <h3>Create New Page</h3>
+        <p>Provide the following details and click Accept to create a new page</p>
+        <p>
+            Controller:
+                <select data-bind="options: $root.pageEditor.controllers, value: controllerId, optionsText: 'id', optionsValue: 'id'"></select>
+            <br />
+            ID: 
+                <input type="text" data-bind="value: pageId" /> (ex: "Index", "About", etc)
+            <br />
+            Title:
+                <input type="text" data-bind="value: title" />
+        </p>
+        <button data-bind="click: $root.newPageDialog.cancel">Cancel</button>
+        <button data-bind="click: $root.newPageDialog.accept">Accept</button>
+    </div>
+    <div class="overlay initialize-hidden" id="new-module-dialog" data-bind="with: newModuleDialog">
+        <h3>Create New Module</h3>
+        <p>Provide the following details and click Accept to create a new module</p>
+        <p>
+            ID: 
+                <input type="text" data-bind="value: moduleId" /> (ex: "Login", "Navigation", etc)
+        </p>
+        <button data-bind="click: $root.newModuleDialog.cancel">Cancel</button>
+        <button data-bind="click: $root.newModuleDialog.accept">Accept</button>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>PlexCMS-Web-PreInstall</id>
+    <version>0.1.0.0</version>
+    <title>PlexCMS Web Pre-Install</title>
+    <authors>Shaun Wilson</authors>
+    <owners />
+    <projectUrl>http://plexcms.codeplex.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      This is a dependency of PlexCMS-Web Package, it serves no purpose by itself.
+    </description>
+    <copyright>Copyright (C) Shaun Wilson</copyright>
+    <tags>plex cms asp.net mvc</tags>
+    <dependencies>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="PreInstall.ps1" target="tools\Install.ps1" />
+    <file src="Plex\README.TXT" target="content\README.TXT" />
+  </files>
+</package>
