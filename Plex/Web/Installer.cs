@@ -33,6 +33,7 @@ namespace Plex.Web
             }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
         private static string GetProjectNamespace(string projectPath, string filename)
         {
             var filepath = Path.Combine(projectPath, filename);
@@ -54,6 +55,7 @@ namespace Plex.Web
             return null;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
         private static void SetProjectNamespace(string projectPath, string filename, string projectNamespace)
         {
             var filepath = projectPath + filename;
