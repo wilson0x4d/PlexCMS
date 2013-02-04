@@ -17,7 +17,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
     {
         public Regex LayoutSectionRegex { get; set; }
         public Regex DefaultModulesRegex { get; set; }
-        
+
         private string layoutFilepath;
 
         public LayoutController()
@@ -151,7 +151,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                         Environment.NewLine + @"@RenderSection(""" + section.ID + @""". required: false)" +
                         Environment.NewLine + @"</body>");
                     stream.Seek(0, SeekOrigin.Begin);
-                    stream.SetLength(0);                    
+                    stream.SetLength(0);
                     using (var writer = new StreamWriter(stream))
                     {
                         writer.Write(text);
@@ -159,8 +159,38 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                     }
                 }
             }
+
+            UpdateDependentPages(section.LayoutID, (pageController, page) =>
+            {
+                pageController.SectionAdd(new PageSectionInfo
+                {
+                    ControllerID = page.ControllerID,
+                    ID = section.ID,
+                    Ordinal = section.Ordinal,
+                    PageID = page.ID,
+                });
+            });
+
             return section;
         }
+
+        /// <summary>
+        /// Helper Method to perform an action on pages which depend on a specified Layout
+        /// </summary>
+        /// <param name="layoutId"></param>
+        /// <param name="action"></param>
+        private static void UpdateDependentPages(string layoutId, Action<PageController, PageInfo> action)
+        {
+            var pageController = new PageController();
+            foreach (var page in pageController.Index())
+            {
+                if (page.LayoutID.Equals(layoutId))
+                {
+                    action(pageController, page);
+                }
+            }
+        }
+
         [ActionName("SectionUp")]
         public LayoutSectionInfo SectionUp(LayoutSectionInfo section)
         {
@@ -194,6 +224,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                     }
                 }
             }
+            // NOTE: this requires no page-level changes
             return section;
         }
         [ActionName("SectionDown")]
@@ -208,6 +239,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
             {
                 SectionUp(next);
             }
+            // NOTE: this requires no page-level changes
             return section;
         }
         [ActionName("SectionRemove")]
@@ -233,6 +265,18 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                     }
                 }
             }
+
+            UpdateDependentPages(section.LayoutID, (pageController, page) =>
+            {
+                pageController.SectionRemove(new PageSectionInfo
+                {
+                    ControllerID = page.ControllerID,
+                    ID = section.ID,
+                    Ordinal = section.Ordinal,
+                    PageID = page.ID,
+                });
+            });
+
             return section;
         }
 
@@ -250,7 +294,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
 
             var match = defaultModulesSections
                 .FirstOrDefault(m => m.Groups[1].Value.Equals(sectionID));
-            
+
             return (match != null)
                 ? match.Groups[0].Value
                 : layoutSections
@@ -292,6 +336,17 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                     }
                 }
             }
+            UpdateDependentPages(layout.ID, (pageController, page) =>
+            {
+                pageController.ModuleAdd(new PageModuleInfo
+                {
+                    ControllerID = page.ControllerID,
+                    ID = module.ID,
+                    Ordinal = module.Ordinal,
+                    PageID = page.ID,
+                    SectionID = module.SectionID,
+                });
+            });
             return module;
         }
 
@@ -334,6 +389,19 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                     }
                 }
             }
+
+            UpdateDependentPages(layout.ID, (pageController, page) =>
+            {
+                pageController.ModuleUp(new PageModuleInfo
+                {
+                    ControllerID = page.ControllerID,
+                    ID = module.ID,
+                    Ordinal = module.Ordinal,
+                    PageID = page.ID,
+                    SectionID = module.SectionID,
+                });
+            });
+
             return module;
         }
 
@@ -380,6 +448,19 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                     }
                 }
             }
+
+            UpdateDependentPages(layout.ID, (pageController, page) =>
+            {
+                pageController.ModuleDown(new PageModuleInfo
+                {
+                    ControllerID = page.ControllerID,
+                    ID = module.ID,
+                    Ordinal = module.Ordinal,
+                    PageID = page.ID,
+                    SectionID = module.SectionID,
+                });
+            });
+
             return module;
         }
 
@@ -410,78 +491,20 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                     }
                 }
             }
+
+            UpdateDependentPages(layout.ID, (pageController, page) =>
+            {
+                pageController.ModuleRemove(new PageModuleInfo
+                {
+                    ControllerID = page.ControllerID,
+                    ID = module.ID,
+                    Ordinal = module.Ordinal,
+                    PageID = page.ID,
+                    SectionID = module.SectionID,
+                });
+            });
+
             return module;
         }
-
-        #region ?
-
-        //[ActionName("item")]
-        //public LayoutInfo Item([FromBody]LayoutInfo layoutInfo)
-        //{
-        //    var id = layoutInfo.ID;
-
-        //    return Directory.GetFiles(layoutFilepath, "_*.cshtml")
-        //        .Where(path => Path.GetFileNameWithoutExtension(path).Remove(0, 1).Equals(id, StringComparison.InvariantCultureIgnoreCase))
-        //        .Select(path =>
-        //        {
-        //            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-        //            {
-        //                using (var reader = new StreamReader(stream))
-        //                {
-        //                    return new LayoutInfo
-        //                    {
-        //                        ID = Path.GetFileNameWithoutExtension(path).Remove(0, 1),
-        //                        Text = reader.ReadToEnd(),
-        //                    };
-        //                }
-        //            }
-        //        })
-        //        .FirstOrDefault();
-        //}
-
-        //// POST api/<controller>
-        //public void Post([FromBody]string value)
-        //{
-        //    // http://stackoverflow.com/questions/10708649/checking-modelstate-in-apicontroller
-
-        //    // TODO: 3) Set Default Layout
-        //    // TODO: 4) Set Custom Layouts for User Agent Regexes
-        //    // TODO: 5) [future] Download and Install Layouts
-        //}
-
-        //// PUT api/<controller>/5
-        //public void Put(string id, [FromBody]LayoutInfo value)
-        //{
-        //    var path = string.Format("{0}_{1}.cshtml",
-        //        layoutFilepath,
-        //        id);
-        //    using (var stream = File.Open(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
-        //    {
-        //        if (stream.Length > 0)
-        //        {
-        //            stream.Seek(0, SeekOrigin.Begin);
-        //            stream.SetLength(0);
-        //        }
-        //        using (var writer = new StreamWriter(stream))
-        //        {
-        //            writer.Write(value);
-        //            writer.Flush();
-        //        }
-        //    }
-        //}
-
-        //// DELETE api/<controller>/5
-        //public void Delete(string id)
-        //{
-        //    var path = string.Format("{0}_{1}.cshtml",
-        //        layoutFilepath,
-        //        id);
-        //    if (File.Exists(path))
-        //    {
-        //        File.Delete(path);
-        //    }
-        //}
-
-        #endregion
     }
 }
