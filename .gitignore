@@ -94,3 +94,5 @@ _vti_pvt/
 
 #Ignore private folder
 /Private/
+
+Plex.WebSite\bin*/
