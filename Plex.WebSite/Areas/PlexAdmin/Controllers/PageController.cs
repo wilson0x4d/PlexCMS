@@ -580,7 +580,9 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
             {
                 bodyStart = text.IndexOf(Environment.NewLine + "}" + Environment.NewLine) + (Environment.NewLine + "}" + Environment.NewLine).Length;
             }
-            return text.Substring(bodyStart);
+            return (bodyStart >= text.Length)
+                ? ""
+                : text.Substring(bodyStart);
         }
 
         /// <summary>
