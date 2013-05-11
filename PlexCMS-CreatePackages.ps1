@@ -9,7 +9,7 @@ $outputPath = $((pwd).Path + "\..\Packages");
 $void = New-Item -ItemType Container -Path $outputPath -Force
 		
 # lift version info
-$assemblyPath = $((pwd).Path + "\$packageName\bin\Debug\$packageName.dll");
+$assemblyPath = $((pwd).Path + "\Plex.WebSite\bin\Plex.WebSite.dll");
 echo $assemblyPath
 $assemblyName = [Reflection.AssemblyName]::GetAssemblyName($assemblyPath);
 $assemblyVersion =  $AssemblyName.Version;

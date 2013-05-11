@@ -17,21 +17,21 @@
     <tags>plex cms asp.net mvc</tags>
     <dependencies>
       <dependency id="PlexCMS-Web-PreInstall" />
-      <package id="jQuery" />
-      <package id="knockoutjs" />
-      <package id="Microsoft.AspNet.Mvc" />
-      <package id="Microsoft.AspNet.Razor" />
-      <package id="Microsoft.AspNet.WebApi" />
-      <package id="Microsoft.AspNet.WebApi.OData" />
-      <package id="Microsoft.AspNet.WebPages" />
-      <package id="Microsoft.AspNet.WebPages.Data" />
-      <package id="Microsoft.AspNet.WebPages.OAuth" />
-      <package id="Microsoft.AspNet.WebPages.WebData" />
-      <package id="Microsoft.Data.OData" />
-      <package id="Microsoft.jQuery.Unobtrusive.Validation" />
-      <package id="Modernizr" />
-      <package id="Newtonsoft.Json" />
-      <package id="Twitter.Bootstrap" />
+      <dependency id="jQuery" />
+      <dependency id="knockoutjs" />
+      <dependency id="Microsoft.AspNet.Mvc" />
+      <dependency id="Microsoft.AspNet.Razor" />
+      <dependency id="Microsoft.AspNet.WebApi" />
+      <dependency id="Microsoft.AspNet.WebApi.OData" />
+      <dependency id="Microsoft.AspNet.WebPages" />
+      <dependency id="Microsoft.AspNet.WebPages.Data" />
+      <dependency id="Microsoft.AspNet.WebPages.OAuth" />
+      <dependency id="Microsoft.AspNet.WebPages.WebData" />
+      <dependency id="Microsoft.Data.OData" />
+      <dependency id="Microsoft.jQuery.Unobtrusive.Validation" />
+      <dependency id="Modernizr" />
+      <dependency id="Newtonsoft.Json" />
+      <dependency id="Twitter.Bootstrap" />
     </dependencies>
   </metadata>
   <files>
