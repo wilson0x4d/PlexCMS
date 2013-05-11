@@ -7,6 +7,7 @@ $removals = @{
 	"Views" = "_ViewStart.cshtml";
 	"App_Start" = "RouteConfig.cs,WebApiConfig.cs";
 	"Home" = "About.cshtml,Contact.cshtml,Index.cshtml";
+	"Areas" = "PlexAdmin";
 };
 
 function AttemptRemovals($folder) {
