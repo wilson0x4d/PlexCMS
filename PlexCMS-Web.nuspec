@@ -16,7 +16,22 @@
     <copyright>Copyright (C) Shaun Wilson</copyright>
     <tags>plex cms asp.net mvc</tags>
     <dependencies>
-      <dependency id="PlexCMS-Web-PreInstall" version="0.0.0.0" />
+      <dependency id="PlexCMS-Web-PreInstall" />
+      <package id="jQuery" />
+      <package id="knockoutjs" />
+      <package id="Microsoft.AspNet.Mvc" />
+      <package id="Microsoft.AspNet.Razor" />
+      <package id="Microsoft.AspNet.WebApi" />
+      <package id="Microsoft.AspNet.WebApi.OData" />
+      <package id="Microsoft.AspNet.WebPages" />
+      <package id="Microsoft.AspNet.WebPages.Data" />
+      <package id="Microsoft.AspNet.WebPages.OAuth" />
+      <package id="Microsoft.AspNet.WebPages.WebData" />
+      <package id="Microsoft.Data.OData" />
+      <package id="Microsoft.jQuery.Unobtrusive.Validation" />
+      <package id="Modernizr" />
+      <package id="Newtonsoft.Json" />
+      <package id="Twitter.Bootstrap" />
     </dependencies>
   </metadata>
   <files>
