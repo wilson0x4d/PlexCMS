@@ -28,6 +28,7 @@
       <dependency id="Microsoft.AspNet.WebPages.OAuth" />
       <dependency id="Microsoft.AspNet.WebPages.WebData" />
       <dependency id="Microsoft.Data.OData" />
+      <dependency id="jQuery.Validation" />
       <dependency id="Microsoft.jQuery.Unobtrusive.Validation" />
       <dependency id="Modernizr" />
       <dependency id="Newtonsoft.Json" />
