@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>PlexCMS-Web</id>
-    <version>0.1.0.1</version>
+    <version>0.0.0.0</version>
     <title>PlexCMS Web</title>
     <authors>Shaun Wilson</authors>
     <owners />
@@ -16,7 +16,7 @@
     <copyright>Copyright (C) Shaun Wilson</copyright>
     <tags>plex cms asp.net mvc</tags>
     <dependencies>
-      <dependency id="PlexCMS-Web-PreInstall" version="0.1.0.1" />
+      <dependency id="PlexCMS-Web-PreInstall" version="0.0.0.0" />
     </dependencies>
   </metadata>
   <files>
