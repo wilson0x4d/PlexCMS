@@ -205,6 +205,12 @@
     <Content Include="Areas\PlexAdmin\Content\PlexCMS-Logo-1.png" />
     <Content Include="Areas\PlexAdmin\Scripts\plexadmin.js" />
     <Content Include="Areas\PlexAdmin\Scripts\upload.js" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\glyphicons-halflings-white.png" />
+    <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\Orange.css" />
     <Content Include="Content\Purple.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -279,6 +285,8 @@
       <Link>README.md</Link>
     </Content>
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.0.0.js" />
     <Content Include="Scripts\jquery-2.0.0.min.js" />
     <Content Include="Scripts\jquery-2.0.0.min.map" />
