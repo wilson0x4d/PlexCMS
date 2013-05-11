@@ -10,7 +10,7 @@ $removals = @{
 };
 
 function AttemptRemovals($folder) {
-	if ($folder.Kind -eq "{6BB5F8EF-4483-11D3-8BCF-00C04F8EC28C}") {
+	if (($folder.Kind -eq "{6BB5F8EF-4483-11D3-8BCF-00C04F8EC28C}") -or ($folder.Kind -eq "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}")) {
 		foreach ($item in $removals.GetEnumerator()) {
 			if ($folder.Name -eq $item.Key) {
 				$filenames = $item.Value.Split(",");
