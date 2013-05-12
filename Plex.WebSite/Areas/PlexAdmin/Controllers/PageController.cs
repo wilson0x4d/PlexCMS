@@ -690,7 +690,6 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                 System.Diagnostics.Trace.WriteLine(sb.ToString());
             }
 
-            // 3. refactor code which needs to know where body starts are located (e.g. should not look for trailing '}' but should instead use a combination of regex matches to determine where 'body' start position is.
             return sb.ToString();
         }
 
