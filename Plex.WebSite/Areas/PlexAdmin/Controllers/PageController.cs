@@ -14,18 +14,23 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
 {
     /* TODO: 
      * 
-     * 1. there is no support for @model, @using nor @inherits directives
+     * [workaround implemented] 1. there is no support for @model, @using nor @inherits directives
      * 
-     * 2. 'body' should not necessarily have to be at the foot of the document, in default MVC pages it is typically located above "@section script {}" blocks. we need to accomodate this somehow.
+     * [workaround implemented] 2. 'body' should not necessarily have to be at the foot of the document, in default MVC pages it is typically located above "@section script {}" blocks. we need to accomodate this somehow.
      * 
-     * 3. detecting @{ and detecting "the first '}\r\n'" can misbehave in several locations (where @{ follows a @section, for example)
+     * [workaround implemented] 3. detecting @{ and detecting "the first '}\r\n'" can misbehave in several locations (where @{ follows a @section, for example)
      * 
-     * 4. A simple cshtml parser needs to be written:
+     * Page 'text' is now normalized in the following ways (to workaround the above issues):
+     * - addressed several bugs by normalizing all newlines to Environment.NewLine. your existing tools can continue butchering newlines if they need to.
+     * - directives are now pushed to the top of the document in the order they appear
+     * - non-body directives (such as @model) are always pushed above bodied directives (such as @section) so they appear first
+     * - the body now returns all @{...} blocks (inluding the block referred to in other comments as the 'first code block')
+     * 
+     * * 4. A simple cshtml parser needs to be written/referenced
      *  Parse Directives (@model, @inherits, @using, @section, etc)
      *  Parse 'First' Code Block (e.g. @{...})
-     *  Parse Body Block
-     *  Make fewer assumptions about the locations of Body.
-     *  Add support for detecting if a @section is managed or hand-edited, translate to user via tooling change.
+     *  Parse Body Block as the first 'non-code, non-whitespace' text line.
+     *  Add support for detecting if a @section is managed or hand-edited, translate to user via tooling change (hand edited sections should appear as a raw textarea with no support for modules)
      * 
      * */
     [Authorize(Roles = "plx:admin")]
@@ -67,65 +72,65 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                         ? Directory.GetFiles(controllerPath, "*.cshtml")
                             .Where(pagePath => !Path.GetFileName(pagePath).StartsWith("_"))
                             .Select(pagePath =>
+                            {
+                                var i = 0;
+
+                                var pageID = Path.GetFileName(pagePath).Replace(".cshtml", "");
+                                var text = GetTextFromFile(pagePath);
+
+                                var layout = default(LayoutInfo);
+                                if (!TryGetLayoutFromText(text, out layout))
                                 {
-                                    var i = 0;
+                                    layout = Layouts.GetDefault();
+                                }
 
-                                    var pageID = Path.GetFileName(pagePath).Replace(".cshtml", "");
-                                    var text = GetTextFromFile(pagePath);
-
-                                    var layout = default(LayoutInfo);
-                                    if (!TryGetLayoutFromText(text, out layout))
+                                var title = default(string);
+                                {
+                                    var match = TitleRegex.Match(text);
+                                    if (match != null && match.Success)
                                     {
-                                        layout = Layouts.GetDefault();
+                                        title = match.Groups[1].Value;
                                     }
+                                }
 
-                                    var title = default(string);
+                                var sections = layout.Sections
+                                    .Select(section =>
                                     {
-                                        var match = TitleRegex.Match(text);
-                                        if (match != null && match.Success)
+                                        var matches = PageSectionRegex.Matches(text).OfType<Match>();
+                                        var modules = default(IEnumerable<PageModuleInfo>);
+                                        var m = 0;
+                                        foreach (var match in matches)
                                         {
-                                            title = match.Groups[1].Value;
-                                        }
-                                    }
-
-                                    var sections = layout.Sections
-                                        .Select(section =>
-                                            {
-                                                var matches = PageSectionRegex.Matches(text).OfType<Match>();
-                                                var modules = default(IEnumerable<PageModuleInfo>);
-                                                var m = 0;
-                                                foreach (var match in matches)
+                                            modules = PageModuleRegex.Matches(match.Groups[2].Value).OfType<Match>()
+                                                .Select(match2 => new PageModuleInfo
                                                 {
-                                                    modules = PageModuleRegex.Matches(match.Groups[2].Value).OfType<Match>()
-                                                        .Select(match2 => new PageModuleInfo
-                                                        {
-                                                            ID = match2.Groups[1].Value,
-                                                            ControllerID = controller.ID,
-                                                            PageID = pageID,
-                                                            SectionID = match.Groups[1].Value,
-                                                            Ordinal = m++
-                                                        });
-                                                    if (section.ID.Equals(match.Groups[1].Value))
-                                                    {
-                                                        return CreatePageSectionInfoIndirect(controller, pageID, i++, section, modules.ToArray());
-                                                    }
-                                                }
-                                                return CreatePageSectionInfoIndirect(controller, pageID, i++, section, null);
-                                            })
-                                        .ToList();
+                                                    ID = match2.Groups[1].Value,
+                                                    ControllerID = controller.ID,
+                                                    PageID = pageID,
+                                                    SectionID = match.Groups[1].Value,
+                                                    Ordinal = m++
+                                                });
+                                            if (section.ID.Equals(match.Groups[1].Value, StringComparison.InvariantCultureIgnoreCase))
+                                            {
+                                                return CreatePageSectionInfoIndirect(controller, pageID, i++, section, modules.ToArray());
+                                            }
+                                        }
+                                        return CreatePageSectionInfoIndirect(controller, pageID, i++, section, null);
+                                    })
+                                    .ToList();
 
-                                    var body = GetPageBodyFromText(text);
+                                var body = GetPageBodyFromText(text);
 
-                                    return new PageInfo
-                                    {
-                                        ID = pageID,
-                                        ControllerID = controller.ID,
-                                        Title = title,
-                                        LayoutID = layout.ID,
-                                        Sections = sections,
-                                        Body = body
-                                    };
-                                })
+                                return new PageInfo
+                                {
+                                    ID = pageID,
+                                    ControllerID = controller.ID,
+                                    Title = title,
+                                    LayoutID = layout.ID,
+                                    Sections = sections,
+                                    Body = body
+                                };
+                            })
                         : null;
                 });
         }
@@ -166,7 +171,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
             }
 
             var result = Index()
-                .Where(p => p.ControllerID.Equals(page.ControllerID) && p.ID.Equals(page.ID))
+                .Where(p => p.ControllerID.Equals(page.ControllerID, StringComparison.InvariantCultureIgnoreCase) && p.ID.Equals(page.ID, StringComparison.InvariantCultureIgnoreCase))
                 .First();
             return result;
         }
@@ -638,7 +643,55 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                     text = reader.ReadToEnd();
                 }
             }
-            return text;
+            return NormalizeText(text);
+        }
+
+        private static string NormalizeText(string text)
+        {
+            // newlines for 'current' platform (this only matters during edit)
+            text = text
+                .Replace(Environment.NewLine, "\n")
+                .Replace("\n", Environment.NewLine);
+
+            var magic = "\x1b\x1b\x1b";
+            var sb = new StringBuilder(magic + text, text.Length * 2);
+            var matches = default(IEnumerable<Match>);
+
+            // 1. move all "directive lines with bodies" to top
+            var directiveLineRegexWithBody = new Regex(@"^@\w+[^\{\r\n]*\{[^\}]*\}\r*\n+", RegexOptions.Multiline | RegexOptions.Compiled);
+
+            matches = directiveLineRegexWithBody.Matches(text).OfType<Match>().Reverse();
+            foreach (var match in matches)
+            {
+                sb
+                    .Replace(match.Value, "")
+                    .Replace(magic, magic + match.Value + Environment.NewLine);
+            }
+
+            // 2. move all "directive lines without bodies" to top
+            var directiveLineRegexNoBody = new Regex(@"^@\w+[^\{\r\n]*\r*\n+", RegexOptions.Multiline | RegexOptions.Compiled);
+
+            matches = directiveLineRegexNoBody.Matches(text).OfType<Match>().Reverse();
+            foreach (var match in matches)
+            {
+                sb
+                    .Replace(match.Value, "")
+                    .Replace(magic, magic + match.Value);
+            }
+
+            // 3. clean up the result
+            sb
+                .Replace(magic, "")
+                .Replace("}" + Environment.NewLine + Environment.NewLine + "@{", "}" + Environment.NewLine + "@{");
+
+            if (!sb.ToString().Equals(text))
+            {
+                System.Diagnostics.Trace.WriteLine("======= Normalized Text: ");
+                System.Diagnostics.Trace.WriteLine(sb.ToString());
+            }
+
+            // 3. refactor code which needs to know where body starts are located (e.g. should not look for trailing '}' but should instead use a combination of regex matches to determine where 'body' start position is.
+            return sb.ToString();
         }
 
         private bool TryGetLayoutFromText(string text, out LayoutInfo layout)

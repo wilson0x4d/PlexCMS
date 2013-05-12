@@ -12,7 +12,6 @@ using System.Web.Http;
 
 namespace Plex.WebSite.Areas.PlexAdmin.Controllers
 {
-    [Authorize(Roles = "plx:admin")]
     public class LayoutController : ApiController
     {
         public Regex LayoutSectionRegex { get; set; }
@@ -184,7 +183,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
             var pageController = new PageController();
             foreach (var page in pageController.Index())
             {
-                if (page.LayoutID.Equals(layoutId))
+                if (page.LayoutID.Equals(layoutId, StringComparison.InvariantCultureIgnoreCase))
                 {
                     action(pageController, page);
                 }
@@ -196,7 +195,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
         {
             var layout = Get(section.LayoutID);
             var prior = layout.Sections
-                .TakeWhile(s => !s.ID.Equals(section.ID))
+                .TakeWhile(s => !s.ID.Equals(section.ID, StringComparison.InvariantCultureIgnoreCase))
                 .Reverse()
                 .FirstOrDefault();
             if (prior != null)
@@ -233,7 +232,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
             var layout = Get(section.LayoutID);
             var next = layout.Sections
                 .Reverse()
-                .TakeWhile(s => !s.ID.Equals(section.ID))
+                .TakeWhile(s => !s.ID.Equals(section.ID, StringComparison.InvariantCultureIgnoreCase))
                 .LastOrDefault();
             if (next != null)
             {
