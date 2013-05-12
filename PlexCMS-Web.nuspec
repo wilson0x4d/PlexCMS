@@ -27,8 +27,9 @@
       <dependency id="Microsoft.AspNet.WebPages.Data" />
       <dependency id="Microsoft.AspNet.WebPages.OAuth" />
       <dependency id="Microsoft.AspNet.WebPages.WebData" />
+      <dependency id="System.Spatial" />
+      <dependency id="Microsoft.Data.OData" version="[5.4.0,6)" />
       <dependency id="Microsoft.Data.Edm" />
-      <dependency id="Microsoft.Data.OData" />
       <dependency id="jQuery.Validation" />
       <dependency id="Microsoft.jQuery.Unobtrusive.Validation" />
       <dependency id="Modernizr" />
