@@ -1,27 +1,29 @@
 ﻿<!DOCTYPE html>
-
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>PlexCMS Admin Area</title>
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/PlexAdmin/css")
-        @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/bundles/jquery")
-        <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.2.1.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Areas/PlexAdmin/Scripts/upload.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Areas/PlexAdmin/Scripts/plexadmin.js")"></script>
-    </head>
-    <body>
-        <header>
-            @RenderSection("header", required: false)
-        </header>
-        <nav>
-            @RenderSection("navigation", required: false)
-        </nav>
-        @RenderBody()
-        <footer>
-            @RenderSection("footer", required: false)
-        </footer>
-    </body>
+<head>
+    <meta charset="utf-8" />
+    <title>PlexCMS Admin Area</title>
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/PlexAdmin/css")
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        @RenderSection("header", required: false)
+    </header>
+    <nav>
+        @RenderSection("navigation", required: false)
+    </nav>
+    @RenderBody()
+    <footer>
+        @RenderSection("footer", required: false)
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.2.1.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/PlexAdmin/Scripts/upload.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/PlexAdmin/Scripts/plexadmin.js")"></script>
+    @RenderSection("scripts", required: false)
+</body>
 </html>

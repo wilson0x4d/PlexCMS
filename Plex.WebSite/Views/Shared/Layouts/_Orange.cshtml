@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title - My PlexCMS MVC Application</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="stylesheet" href="@Url.Content("~/Content/Orange.css")" />
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <header>
-    <div class="content-wrapper">
-        <div class="float-left">
-            <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
-        </div>
-        <div class="float-right">
-            @RenderSection("header", required: false)
-            <!--plx:modules:Login,Navigation-->
-        </div>
-    </div>
-        </header>
-        <div id="body">
-            <section class="featured">
-                <div class="content-wrapper">
-                    <hgroup class="title">
-                        <h1>@ViewBag.Title.</h1>
-                        <h2>@ViewBag.Message</h2>
-                    </hgroup>
-                    @RenderSection("featured", required: false)
-<!--plx:modules:-->
-                </div>
-            </section>
-            <div class="content-wrapper main-content clear-fix">
-                @RenderBody()
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My PlexCMS MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/Orange.css")" />
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+            </div>
+            <div class="float-right">
+                @RenderSection("header", required: false)
+                <!--plx:modules:Login,Navigation-->
             </div>
         </div>
-        <footer>
-            @RenderSection("footer", required: false)
-            <!--plx:modules:Copyright-->
-        </footer>
-
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
-    </body>
+    </header>
+    <div id="body">
+        <div class="featured">
+            <div class="content-wrapper">
+                <hgroup class="title">
+                    <h1>@ViewBag.Title.</h1>
+                    <h2>@ViewBag.Message</h2>
+                </hgroup>
+                @RenderSection("featured", required: false)
+                <!--plx:modules:-->
+            </div>
+        </div>
+        <div class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </div>
+    </div>
+    <footer>
+        @RenderSection("footer", required: false)
+        <!--plx:modules:Copyright-->
+    </footer>
+    @Scripts.Render("~/bundles/jquery")
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.2.1.js")"></script>
+    @RenderSection("scripts", required: false)
+</body>
 </html>
