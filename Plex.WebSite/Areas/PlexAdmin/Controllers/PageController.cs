@@ -68,7 +68,12 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                 .SelectMany(controller =>
                 {
                     var controllerPath = Path.Combine(viewsFilepath, controller.ID);
-                    return Directory.Exists(controllerPath)
+                    if (!Directory.Exists(controllerPath))
+                    {
+                        return new PageInfo[0];
+                    }
+                    var files = Directory.GetFiles(controllerPath, "*.cshtml");
+                    return (files != null && files.Length > 0)
                         ? Directory.GetFiles(controllerPath, "*.cshtml")
                             .Where(pagePath => !Path.GetFileName(pagePath).StartsWith("_"))
                             .Select(pagePath =>
@@ -683,12 +688,6 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
             sb
                 .Replace(magic, "")
                 .Replace("}" + Environment.NewLine + Environment.NewLine + "@{", "}" + Environment.NewLine + "@{");
-
-            if (!sb.ToString().Equals(text))
-            {
-                System.Diagnostics.Trace.WriteLine("======= Normalized Text: ");
-                System.Diagnostics.Trace.WriteLine(sb.ToString());
-            }
 
             return sb.ToString();
         }
