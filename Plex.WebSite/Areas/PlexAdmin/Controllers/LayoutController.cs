@@ -12,6 +12,7 @@ using System.Web.Http;
 
 namespace Plex.WebSite.Areas.PlexAdmin.Controllers
 {
+    [Authorize(Roles = "plx:admin")]
     public class LayoutController : ApiController
     {
         public Regex LayoutSectionRegex { get; set; }
