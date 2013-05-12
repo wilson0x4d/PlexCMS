@@ -1,4 +1,4 @@
-﻿using Plex.Data;
+using Plex.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -83,7 +83,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
         public LayoutInfo Get(string layoutId)
         {
             return Index()
-                .First(layout => layout.ID.Equals(layoutId, StringComparison.InvariantCultureIgnoreCase));
+                .FirstOrDefault(layout => layout.ID.Equals(layoutId, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public Regex ViewStartLayoutMatchRegex { get; set; }

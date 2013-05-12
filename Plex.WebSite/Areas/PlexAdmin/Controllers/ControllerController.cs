@@ -1,4 +1,4 @@
-﻿using Plex.Data;
+using Plex.Data;
 using Plex.Web.Controllers;
 using Plex.WebSite.Controllers;
 using System;

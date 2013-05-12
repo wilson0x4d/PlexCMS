@@ -1,4 +1,4 @@
-﻿using Plex.Web.Controllers;
+using Plex.Web.Controllers;
 using Plex.WebSite.Filters;
 using System;
 using System.Collections.Generic;

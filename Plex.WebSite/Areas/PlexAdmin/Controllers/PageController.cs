@@ -1,4 +1,4 @@
-﻿using Plex.Data;
+using Plex.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -161,14 +161,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                 // first time page create process
                 TitleSet(page);
                 LayoutSet(page);
-                // TODO: use layout info to create new pages (e.g. apply 'Default Modules')
-                if (page.Sections != null)
-                {
-                    foreach (var section in page.Sections)
-                    {
-                        SectionAdd(section);
-                    }
-                }
+                ResetPageLayout(page);
             }
             else
             {
@@ -179,6 +172,43 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                 .Where(p => p.ControllerID.Equals(page.ControllerID, StringComparison.InvariantCultureIgnoreCase) && p.ID.Equals(page.ID, StringComparison.InvariantCultureIgnoreCase))
                 .First();
             return result;
+        }
+
+        private void ResetPageLayout(PageInfo page)
+        {
+            var layoutController = new LayoutController();
+            var layout =
+                layoutController.Get(page.LayoutID)
+                ?? layoutController.GetDefault();
+            foreach (var section in layout.Sections)
+            {
+                var pageSections =
+                    page.Sections
+                    ?? new PageSectionInfo[0];
+                var existingSection = pageSections
+                    .FirstOrDefault(s => s.ID.Equals(section.ID, StringComparison.InvariantCultureIgnoreCase));
+                if (existingSection == null)
+                {
+                    existingSection = SectionAdd(page.ID, section);
+                }
+
+                foreach (var module in section.Modules)
+                {
+                    var existingModule = existingSection.Modules
+                        .FirstOrDefault(m => m.ID.Equals(module.ID, StringComparison.InvariantCultureIgnoreCase));
+                    if (existingModule == null)
+                    {
+                        existingModule = ModuleAdd(new PageModuleInfo
+                        {
+                            ControllerID = page.ControllerID,
+                            ID = module.ID,
+                            Ordinal = module.Ordinal,
+                            PageID = page.ID,
+                            SectionID = module.SectionID,
+                        });
+                    }
+                }
+            }
         }
 
         public PageInfo PageMove(PageInfo source, PageInfo dest)
@@ -329,6 +359,15 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
 
             // rewrite file
             WriteTextToPath(sb, path);
+
+            // add missing modules
+            if (section.Modules != null)
+            {
+                foreach (var module in section.Modules)
+                {
+                    ModuleAdd(module);
+                }
+            }
 
             return section;
         }
@@ -708,5 +747,36 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
         }
 
         #endregion
+
+        internal PageSectionInfo SectionAdd(string pageId, LayoutSectionInfo section)
+        {
+            var page = Index()
+                .Where(p => p.ID.Equals(pageId, StringComparison.InvariantCultureIgnoreCase))
+                .FirstOrDefault();
+            return SectionAdd(new PageSectionInfo
+            {
+                ControllerID = page.ControllerID,
+                ID = section.ID,
+                IsPresent = true,
+                Modules = LayoutModulesToPageModule(page, section.Modules),
+                Ordinal = section.Ordinal,
+                PageID = pageId,
+            });
+        }
+
+        internal IEnumerable<PageModuleInfo> LayoutModulesToPageModule(PageInfo page, IEnumerable<LayoutModuleInfo> enumerable)
+        {
+            foreach (var module in enumerable)
+            {
+                yield return new PageModuleInfo
+                {
+                    ControllerID = page.ControllerID,
+                    ID = module.ID,
+                    Ordinal = module.Ordinal,
+                    PageID = page.ID,
+                    SectionID = module.SectionID,
+                };
+            }
+        }
     }
 }

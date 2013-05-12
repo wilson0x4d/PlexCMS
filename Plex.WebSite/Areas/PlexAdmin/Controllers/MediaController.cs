@@ -1,4 +1,4 @@
-﻿using Plex.Data;
+using Plex.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
