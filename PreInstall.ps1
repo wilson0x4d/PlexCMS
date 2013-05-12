@@ -5,6 +5,7 @@ Write-Host $("==== BEGIN PlexCMS Pre-Install Script");
 $removals = @{
 	"Controllers" = "HomeController.cs";
 	"Views" = "_ViewStart.cshtml";
+	"Layouts" = "_Classic,_Orange,_Purple";
 	"App_Start" = "RouteConfig.cs,WebApiConfig.cs";
 	"Home" = "About.cshtml,Contact.cshtml,Index.cshtml";
 	"Areas" = "PlexAdmin";
