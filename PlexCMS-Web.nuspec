@@ -34,6 +34,7 @@
       <dependency id="Modernizr" />
       <dependency id="Newtonsoft.Json" />
       <dependency id="Twitter.Bootstrap" />
+      <dependency id="FontAwesome" />
     </dependencies>
   </metadata>
   <files>
