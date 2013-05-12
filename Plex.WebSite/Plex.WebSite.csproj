@@ -289,7 +289,6 @@
     <Content Include="Areas\PlexAdmin\Views\Default\Index.cshtml" />
     <Content Include="Areas\PlexAdmin\Views\_ViewStart.cshtml" />
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
-    <Content Include="README.TXT" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.0.0.js" />
