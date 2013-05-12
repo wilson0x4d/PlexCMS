@@ -6,7 +6,7 @@
     <title>PlexCMS Web Pre-Install</title>
     <authors>Shaun Wilson</authors>
     <owners />
-    <projectUrl>http://plexcms.codeplex.com</projectUrl>
+    <projectUrl>http://github.com/wilson0x4d/PlexCMS</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
       This is a dependency of PlexCMS-Web Package, it serves no purpose by itself.

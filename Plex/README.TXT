@@ -1,6 +1,7 @@
 ﻿License:
 
-	http://plexcms.codeplex.com/license
+	http://github.com/wilson0x4d/PlexCMS/blob/master/Plex/README.TXT
+	
 
 Microsoft Reciprocal License (Ms-RL)
 

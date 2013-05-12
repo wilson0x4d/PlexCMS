@@ -6,7 +6,7 @@
     <title>PlexCMS Web</title>
     <authors>Shaun Wilson</authors>
     <owners />
-    <projectUrl>http://plexcms.codeplex.com</projectUrl>
+    <projectUrl>http://github.com/wilson0x4d/PlexCMS</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>
       This package requires an ASP.NET MVC Application as a base, it adds CMS functionality including an admin portal.
