@@ -1,0 +1,30 @@
+﻿    <!-- TODO: the following should behave more like a dialog than an interstitial -->
+    <div class="overlay initialize-hidden form-horizontal" id="new-page-dialog" data-bind="with: newPageDialog">
+        <h3>Create New Page</h3>
+        <p>Provide the following details and click Accept to create a new page</p>
+        <div class="control-group">
+            <label class="control-label">Controller</label>
+            <div class="controls">
+                <select data-bind="options: $root.pageEditor.controllers, value: controllerId, optionsText: 'id', optionsValue: 'id'"></select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">ID</label>
+            <div class="controls">
+                <input type="text" data-bind="value: pageId" />
+                <label><small>(ex: "Index", "About", etc)</small></label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label">Title</label>
+            <div class="controls">
+                <input type="text" data-bind="value: title" />
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button data-bind="click: $root.newPageDialog.cancel">Cancel</button>
+                <button data-bind="click: $root.newPageDialog.accept">Accept</button>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,72 @@
+﻿<div class="accordion" id="nav-root">
+
+    <div class="accordion-group" data-bind="with: layoutEditor">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#nav-root" href="#nav-layouts"><i class="icon-home"></i> Layouts</a>
+        </div>
+        <div id="nav-layouts" class="accordion-body collapse" data-bind="foreach: layouts">
+            <div class="accordion-inner">
+                <a href="#" data-bind="text: id, click: $root.layoutEditor.selectLayout"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-group" data-bind="with: pageEditor">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#nav-root" href="#nav-controllers"><i class="icon-globe"></i> Pages</a>
+        </div>
+        <div id="nav-controllers" class="accordion-body collapse">            
+            <button class="btn btn-mini pull-right btn-primary" data-bind="click: $root.newPageDialog.showDialog">New</button>
+            <!-- ko foreach: controllers -->
+                <div class="accordion-inner">
+                    <strong data-bind="text: id"></strong>
+                    <ul data-bind="foreach: pages">
+                        <li><a href="#" data-bind="text: id, click: $root.pageEditor.selectPage"></a></li>
+                    </ul>
+                </div>
+            <!-- /ko -->
+        </div>
+    </div>
+
+    <div class="accordion-group" data-bind="with: moduleEditor">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#nav-root" href="#nav-modules"><i class="icon-cogs"></i> Modules</a>
+        </div>
+        <div id="nav-modules" class="accordion-body collapse">
+            <button class="btn btn-mini pull-right btn-primary" data-bind="click: $root.newModuleDialog.showDialog">New</button>
+            <!-- ko foreach: modules -->
+                <div class="accordion-inner">
+                    <a href="#" data-bind="text: id, click: $root.moduleEditor.selectModule"></a>
+                </div>
+            <!-- /ko -->
+        </div>
+    </div>
+
+    <div class="accordion-group">
+        <div class="accordion-heading">            
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#nav-root" href="#nav-media"><i class="icon-camera-retro"></i> Media</a>
+        </div>
+        <div id="nav-media" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <a href="#" data-bind="click: $root.mediaUploadDialog.showDialog">Uploader</a>
+            </div>
+            <div class="accordion-inner">
+                <a href="#" data-bind="click: $root.mediaEditor.showView">Library</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-group" data-bind="with: helpSystem">
+        <div class="accordion-heading">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#nav-root" href="#nav-help"><i class="icon-question-sign"></i> Help</a>
+        </div>
+        <div id="nav-help" class="accordion-body collapse in">
+            <!-- ko foreach: sections -->
+                <div class="accordion-inner">
+                   <a href="#" data-bind="text: title, click: $parent.showSection"></a>
+                </div>
+            <!-- /ko -->
+        </div>
+    </div>
+
+</div>

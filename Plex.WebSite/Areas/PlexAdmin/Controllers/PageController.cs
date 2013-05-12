@@ -70,7 +70,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                     var controllerPath = Path.Combine(viewsFilepath, controller.ID);
                     if (!Directory.Exists(controllerPath))
                     {
-                        return new PageInfo[0];
+                        return null;
                     }
                     var files = Directory.GetFiles(controllerPath, "*.cshtml");
                     return (files != null && files.Length > 0)
@@ -122,7 +122,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                                         }
                                         return CreatePageSectionInfoIndirect(controller, pageID, i++, section, null);
                                     })
-                                    .ToList();
+                                    .ToArray();
 
                                 var body = GetPageBodyFromText(text);
 
@@ -136,7 +136,7 @@ namespace Plex.WebSite.Areas.PlexAdmin.Controllers
                                     Body = body
                                 };
                             })
-                        : null;
+                        : new PageInfo[0];
                 });
         }
 

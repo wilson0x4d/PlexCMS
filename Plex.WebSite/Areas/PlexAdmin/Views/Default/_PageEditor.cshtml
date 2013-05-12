@@ -1,0 +1,75 @@
+﻿    <div class="page-editor initialize-hidden" data-bind="with: $root.pageEditor.selectedPage">
+        <h3>"<span data-bind="text: controllerId"></span>/<span data-bind="text: id"></span>" <small>(Page)</small></h3>
+        <div class="btn-group">
+            <a class="btn btn-info" href="#" title="View this page in a new browser window." data-bind="click: $root.pageEditor.readPage">view</a>
+            <a class="btn" href="#" title="Move page between controllers and/or give it a new name." data-bind="click: $root.notImplemented">move/rename</a>
+            <a class="btn btn-warning" href="#" title="Permanently delete this page, there is no undelete." data-bind="click: $root.pageEditor.deletePage">delete</a>
+        </div>
+
+        <h5>Page Title</h5>
+        <div class="form-horizontal">
+            <div class="control-group">
+                <label class="control-label">Title</label>
+                <div class="controls">
+                    <input type="text" data-bind="value: title" />
+                    <button data-bind="click: $root.pageEditor.titleSet">Set</button>
+                </div>
+            </div>
+        </div>
+
+        <h5>Page Layout</h5>
+        <div class="form-horizontal">
+            <p>
+                The <em>Layout</em> determines the availability of <em>Sections</em>, choosing an incorrect Layout may cause <em>Pages</em> to stop rendering.
+                The <strong>Layout Editor</strong> can be used to set a <em>Default Layout</em>.
+            </p>
+            <div class="control-group">
+                <label class="control-label">Layout</label>
+                <div class="controls">
+                    <select data-bind="options: $root.pageEditor.layouts, optionsText: 'id', optionsValue: 'id', value: layoutId, optionsCaption: 'Use Global Default'"></select>
+                    <button data-bind="click: $root.pageEditor.layoutSet">Set</button>
+                </div>
+            </div>
+        </div>
+
+        <h5>Customize Modules</h5>
+        <div class="links-are-glyphs" data-bind="foreach: sections.sort(function(l,r) { return l.ordinal() < r.ordinal() ? -1 : 1; })">
+            <div class="row-fluid">
+                <div class="section span5">
+                    <!-- ko if: $data.isPresent -->
+                        <div class="section-caption">
+                            <a title="remove" href="#" data-bind="click: $root.pageEditor.sectionRemove"><i class="icon-remove"></i></a>&nbsp;<span class="identity" data-bind="text: id"></span>
+                        </div>
+                        <div class="section-info">
+                            <span class="heading">Modules</span>
+                            <div class="pad16" data-bind="foreach: modules.sort(function(l,r) { return l.ordinal() < r.ordinal() ? -1 : 1; })">
+                                <div><a title="remove" href="#" data-bind="click: $root.pageEditor.moduleRemove"><i class="icon-remove"></i></a>&nbsp;<span class="identity" data-bind="text: id"></span>&nbsp;<a title="move up" href="#" data-bind="click: $root.pageEditor.moduleUp"><i class="icon-upload"></i></a>&nbsp;<a title="move down" href="#" data-bind="click: $root.pageEditor.moduleDown"><i class="icon-download"></i></a></div>
+                            </div>
+                            <div>
+                                <select data-bind="options: $root.moduleEditor.modules, value: $root.pageEditor.selectedModule, optionsText: 'id'"></select>
+                                <button data-bind="click: $root.pageEditor.moduleAdd">Add</button>
+                            </div>
+                        </div>
+                    <!-- /ko -->
+                    <!-- ko ifnot: $data.isPresent -->
+                        <div class="section-caption">
+                            &nbsp;&nbsp;<span class="identity" data-bind="text: id"></span>
+                        </div>
+                        <div class="section-info">
+                            <button class="btn btn-primary" data-bind="click: $root.pageEditor.sectionAdd">Add Missing Section</button>
+                        </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+
+        <h5>Customize Body</h5>
+        <p>
+            You can customize the page body here, full C#/Razor syntax is supported as if you were editing a CSHTML file directly.
+        </p>
+        <textarea class="span12" data-bind="value: body" rows="13">
+        </textarea>
+        <br />
+        <button data-bind="click: $root.pageEditor.bodySet">Set</button>
+
+    </div>

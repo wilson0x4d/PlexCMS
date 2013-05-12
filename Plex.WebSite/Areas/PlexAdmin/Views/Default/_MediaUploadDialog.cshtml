@@ -1,0 +1,23 @@
+﻿    <!-- TODO: the following should behave more like a dialog than an interstitial -->
+    <div class="overlay initialize-hidden" id="media-upload-dialog" data-bind="with: $root.mediaUploadDialog">
+        <h3>Media Uploader</h3>
+        <p>This is a simple media uploader, it allows Content Authors to upload media such as Images, Videos, etc.</p>
+        <h5>Browse for a File</h5>
+        <p>Browse for a File you would like to upload:</p>
+        <div id="media-submit-container"></div>
+        <h5>Pending and Completed Uploads</h5>
+        <div class="data-box" data-bind="foreach: uploads">
+            <!-- TODO: can obviously do better, this is minimalist -->
+            <div style="margin:4px;border:solid 1px #ddd;background-color:#eee;padding:3px">
+                ID: <span data-bind="text: id"></span>
+                <br />
+                FILE: <span data-bind="text: filename"></span>
+                <br />
+                STATE: <span data-bind="text: state"></span>
+                <br />
+                SPEED: <span data-bind="text: speed"></span>
+                <br />
+                PROGRESS: <span data-bind="text: progress"></span>%
+            </div>
+        </div>
+    </div>

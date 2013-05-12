@@ -1,0 +1,16 @@
+﻿    <div class="module-editor initialize-hidden" data-bind="with: moduleEditor.selectedModule">
+        <h3>"<span data-bind="text: id"></span>" <small>(Module)</small></h3>
+        <div class="btn-group">
+            <a class="btn" href="#" title="Give this module a new name.">rename</a>
+            <a class="btn btn-warning" href="#" title="Permanently delete this module, there is no undelete." data-bind="click: $root.moduleEditor.moduleRemove">delete module</a>
+        </div>
+        
+        <h5>Module Body</h5>
+        <p>
+            You can customize the Module Body here, full C#/Razor syntax is supported as if you were editing a CSHTML file directly.
+        </p>
+        <textarea class="span12" data-bind="value: text" rows="13">
+        </textarea>
+        <br />
+        <button data-bind="click: $root.moduleEditor.moduleUpsert">Update</button>
+    </div>

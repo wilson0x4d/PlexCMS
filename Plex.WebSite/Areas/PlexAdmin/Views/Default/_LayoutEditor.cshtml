@@ -1,0 +1,48 @@
+﻿    <div class="layout-editor initialize-hidden" data-bind="with: layoutEditor.selectedLayout">
+        <h3>"<span data-bind="text: id"></span>" <small>(Layout)</small></h3>
+
+        <label class="checkbox">
+            <input type="checkbox" name="layoutIsDefault" value="Default" data-bind="checked: ($root.defaultLayout().id() === id()), click: $root.setDefaultLayout" />
+            Use "<span data-bind="text: id"></span>" as the Default Layout.
+        </label>
+        
+        <h5>Modify Sections, Default Modules</h5>
+        <div class="links-are-glyphs" data-bind="foreach: sections.sort(function(l,r) { return l.ordinal() < r.ordinal() ? -1 : 1; })">
+            <div class="row-fluid">
+                <div class="section span5">
+                    <div class="section-caption">
+                        <a title="remove" href="#" data-bind="click: $root.layoutEditor.sectionRemove"><i class="icon-remove"></i></a>&nbsp;<span class="identity" data-bind="text: id"></span>&nbsp;<a title="move up" href="#" data-bind="click: $root.layoutEditor.sectionUp"><i class="icon-upload"></i></a>&nbsp;<a title="move down" href="#" data-bind="click: $root.layoutEditor.sectionDown"><i class="icon-download"></i></a>
+                    </div>
+                    <div class="section-info">
+                        <span class="heading">Modules</span>
+                        <div class="pad16" data-bind="foreach: modules.sort(function(l,r) { return l.ordinal() < r.ordinal() ? -1 : 1; })">
+                            <div><a title="remove" href="#" data-bind="click: $root.layoutEditor.moduleRemove"><i class="icon-remove"></i></a>&nbsp;<span class="identity" data-bind="text: id"></span>&nbsp;<a title="move up" href="#" data-bind="click: $root.layoutEditor.moduleUp"><i class="icon-upload"></i></a>&nbsp;<a title="move down" href="#" data-bind="click: $root.layoutEditor.moduleDown"><i class="icon-download"></i></a></div>
+                        </div>
+                        <div>
+                            <select data-bind="options: $root.moduleEditor.modules, value: $root.layoutEditor.selectedModule, optionsText: 'id'"></select>
+                            <button data-bind="click: $root.layoutEditor.moduleAdd">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h5>Add New Section</h5>
+        <div>
+            <div class="control-group">
+                <div class="controls">
+                    <p>
+                        You can add a new section, this is only meant to allow Content Authors to add new sections without having to edit files directly. Note, this is NOT the entire Page.
+                    </p>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                    <label class="control-label">Name</label><input type="text" data-bind="value: $root.layoutEditor.sectionIdForAdd" />
+                </div>
+                <div class="controls">
+                    <button class="btn" data-bind="click: $root.layoutEditor.sectionAdd">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>

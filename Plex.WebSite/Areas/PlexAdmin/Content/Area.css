@@ -1,4 +1,21 @@
-﻿body {
+﻿.accordion-toggle {
+    background-color: ButtonFace;
+    font-weight: bold;
+}
+.accordion-toggle:hover {
+    background-color: ButtonShadow;
+    text-decoration: none;
+}
+.accordion-body {
+    background-color: floralwhite;
+    font-size: 0.8em;
+}
+
+.links-are-glyphs a:hover {
+    text-decoration: none;
+}
+
+/*body {
     border: 0px;
     margin: 0;
     overflow: hidden;
@@ -20,22 +37,16 @@ nav {
     overflow-x: hidden;
     padding: 4px;
 }
+*/
 
-div.logo {
-    z-index: 5;
-    position: fixed;
-    left: 4px;
-    top: 0px;
-    width: 256px;
+.logo {
     height: 48px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 24px;
-    padding-top: 8px;
     background-image: url('/Areas/PlexAdmin/Content/PlexCMS-Logo-1.png');
+    background-size: contain;
     background-repeat: no-repeat;
 }
 
+/*
 header {
     position: fixed;
     left: 260px;
@@ -100,15 +111,16 @@ div.workspace {
 
 div.layout-editor, div.page-editor, div.module-editor, div.media-editor {
 }
+*/
 
 div.section {
     background-color: ButtonFace;
     margin-left: 16px;
     margin-top: 1px;
     margin-bottom: 2px;
-    width: 192px;
     border: outset 1px WindowFrame;
     padding: 1px;
+    border-radius: 3px;
 }
 
     div.section span.identity {
@@ -118,17 +130,12 @@ div.section {
 
     div.section div.section-caption {
         background-color: InactiveCaption;
+        border-radius: 3px;
     }
 
     div.section div.section-info {
         padding: 3px;
     }
-
-span.heading {
-    text-transform: capitalize;
-    font-size: 0.6em;
-    font-weight: bold;
-}
 
 .pad16 {
     padding-left: 16px;
@@ -138,9 +145,16 @@ span.heading {
     padding-left: 32px;
 }
 
+/*
+span.heading {
+    text-transform: capitalize;
+    font-size: 0.6em;
+    font-weight: bold;
+}
+
 textarea {
-    width: 580px;
-    height: 280px;
+    min-width: 580px;
+    min-height: 280px;
 }
 
 div.links-are-glyphs div div a {
@@ -179,4 +193,4 @@ div.data-box {
     padding: 16px;
     border: solid 1px steelblue;
     background-color: white;
-}
+}*/

@@ -5,23 +5,31 @@
     <title>PlexCMS Admin Area</title>
     <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/PlexAdmin/css")
-    <link rel="stylesheet" href="/Content/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Content/bootstrap.min.css">
     <link rel="stylesheet" href="/Content/font-awesome.min.css">
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <header>
-        @RenderSection("header", required: false)
-    </header>
-    <nav>
-        @RenderSection("navigation", required: false)
-    </nav>
-    @RenderBody()
-    <footer>
-        @RenderSection("footer", required: false)
-    </footer>
+    <div class="container-fluid">
+        <header class="row-fluid">
+            @Html.Partial("_Header")
+        </header>
+        <div class="row-fluid">
+            <div class="span2">
+                <nav>
+                    @Html.Partial("_Navigation")
+                </nav>
+            </div>
+            <div class="span10 well">
+                @RenderBody()
+            </div>
+        </div>
+        <footer class="row-fluid">
+            @Html.Partial("_Footer")
+        </footer>
+    </div>
     @Scripts.Render("~/bundles/jquery")
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/Scripts/bootstrap.min.js"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/knockout-2.2.1.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/PlexAdmin/Scripts/upload.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Areas/PlexAdmin/Scripts/plexadmin.js")"></script>

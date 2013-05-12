@@ -1,0 +1,11 @@
+﻿    <!-- TODO: the following should behave more like a dialog than an interstitial -->
+    <div class="overlay initialize-hidden" id="new-module-dialog" data-bind="with: newModuleDialog">
+        <h3>Create New Module</h3>
+        <p>Provide the following details and click Accept to create a new module</p>
+        <p>
+            ID: 
+                <input type="text" data-bind="value: moduleId" /> (ex: "Login", "Navigation", etc)
+        </p>
+        <button data-bind="click: $root.newModuleDialog.cancel">Cancel</button>
+        <button data-bind="click: $root.newModuleDialog.accept">Accept</button>
+    </div>

@@ -1,0 +1,10 @@
+﻿    <div class="media-editor initialize-hidden">
+        <h3>Media Library</h3>
+        <div class="data-box" data-bind="foreach: $root.mediaEditor.medias">
+            <!-- TODO: minimalist, would prefer a browser-like approach to nav and interaction -->
+            <div>
+                <span data-bind="text: folderName"></span>/<span data-bind="text: fileName"></span> (<span data-bind="text: length"></span>)
+                <a href="#" data-bind="click: $root.notImplemented">view/download</a> | <a href="#" data-bind="click: $root.notImplemented">rename/move</a> | <a href="#" data-bind="click: $root.mediaEditor.mediaRemove">delete</a>
+            </div>
+        </div>
+    </div>
